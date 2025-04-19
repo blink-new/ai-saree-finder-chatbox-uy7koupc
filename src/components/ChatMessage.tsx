@@ -12,13 +12,9 @@ export function ChatMessage({ message }: ChatMessageProps) {
       className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
     >
       <div className={`flex gap-2 max-w-[80%] ${message.role === 'user' ? 'flex-row-reverse' : 'flex-row'}`}>
-        <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
-          message.role === 'assistant' 
-            ? 'bg-gradient-to-r from-pink-500 to-purple-600' 
-            : 'bg-gray-200 dark:bg-gray-700'
-        }`}>
-          <span className="text-xs text-white">{message.role === 'assistant' ? 'AI' : 'You'}</span>
-        </div>
+        <Avatar className={message.role === 'assistant' ? 'bg-gradient-to-r from-pink-500 to-purple-600' : 'bg-gray-200 dark:bg-gray-700'}>
+          <span className="text-xs">{message.role === 'assistant' ? 'AI' : 'You'}</span>
+        </Avatar>
         <div 
           className={`rounded-lg p-3 ${
             message.role === 'assistant' 

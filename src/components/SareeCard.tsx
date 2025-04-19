@@ -19,10 +19,6 @@ export function SareeCard({ saree, view }: SareeCardProps) {
             src={saree.image} 
             alt={saree.name} 
             className="object-cover w-full h-full"
-            onError={(e) => {
-              // Fallback image if the original fails to load
-              (e.target as HTMLImageElement).src = 'https://images.pexels.com/photos/2235071/pexels-photo-2235071.jpeg?auto=compress&cs=tinysrgb&w=400';
-            }}
           />
           <div className="absolute top-2 right-2">
             <Badge className="bg-white text-pink-600 dark:bg-gray-800 dark:text-pink-300">
@@ -68,10 +64,6 @@ export function SareeCard({ saree, view }: SareeCardProps) {
               src={saree.image} 
               alt={saree.name} 
               className="object-cover w-full h-full"
-              onError={(e) => {
-                // Fallback image if the original fails to load
-                (e.target as HTMLImageElement).src = 'https://images.pexels.com/photos/2235071/pexels-photo-2235071.jpeg?auto=compress&cs=tinysrgb&w=400';
-              }}
             />
           </div>
           <div className="flex-1">
