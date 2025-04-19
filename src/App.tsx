@@ -1,6 +1,6 @@
 
 import { useState, useRef, useEffect } from 'react';
-import { Mic, MicOff, Send, ShoppingBag } from 'lucide-react';
+import { Mic, MicOff, Send, ShoppingBag, Sparkles } from 'lucide-react';
 import { Button } from './components/ui/button';
 import { Input } from './components/ui/input';
 import { Card, CardContent } from './components/ui/card';
@@ -10,7 +10,9 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from './components/ui/tabs';
 import { Message, SareeRecommendation } from './types';
 import { ChatMessage } from './components/ChatMessage';
 import { SareeCard } from './components/SareeCard';
+import { SuggestionChips } from './components/SuggestionChips';
 import { analyzeQuery } from './services/aiService';
+import { sampleQueries } from './data/mockData';
 
 function App() {
   const [messages, setMessages] = useState<Message[]>([
@@ -128,6 +130,11 @@ function App() {
     }
   };
 
+  // Handle suggestion selection
+  const handleSuggestionSelect = (suggestion: string) => {
+    setInput(suggestion);
+  };
+
   return (
     <div className="flex flex-col min-h-screen bg-gradient-to-br from-pink-50 to-purple-50 dark:from-gray-900 dark:to-purple-950">
       <header className="py-4 px-6 bg-white dark:bg-gray-800 shadow-sm">
@@ -137,6 +144,7 @@ function App() {
           </h1>
           <div className="flex items-center space-x-2">
             <Badge variant="outline" className="bg-gradient-to-r from-pink-100 to-purple-100 text-pink-800 dark:from-pink-900 dark:to-purple-900 dark:text-pink-200">
+              <Sparkles size={14} className="mr-1" />
               Powered by AI
             </Badge>
           </div>
@@ -173,6 +181,15 @@ function App() {
               </ScrollArea>
               
               <div className="p-4 border-t border-pink-100 dark:border-pink-900">
+                {messages.length === 1 && (
+                  <div className="mb-3">
+                    <p className="text-sm text-gray-600 dark:text-gray-300 mb-1">Try asking about:</p>
+                    <SuggestionChips 
+                      suggestions={sampleQueries} 
+                      onSelect={handleSuggestionSelect} 
+                    />
+                  </div>
+                )}
                 <div className="flex gap-2">
                   <Button 
                     variant="outline" 
@@ -191,7 +208,8 @@ function App() {
                   />
                   <Button 
                     onClick={handleSendMessage}
-                    className="bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700"
+                    disabled={!input.trim()}
+                    className="bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 transition-all duration-300"
                   >
                     <Send size={18} />
                   </Button>
@@ -237,7 +255,7 @@ function App() {
                 </Tabs>
               ) : (
                 <div className="flex-1 flex flex-col items-center justify-center text-center p-6">
-                  <div className="w-24 h-24 rounded-full bg-pink-100 dark:bg-pink-900 flex items-center justify-center mb-4">
+                  <div className="w-24 h-24 rounded-full bg-pink-100 dark:bg-pink-900 flex items-center justify-center mb-4 animate-pulse">
                     <ShoppingBag size={40} className="text-pink-500 dark:text-pink-300" />
                   </div>
                   <h3 className="text-xl font-semibold mb-2">No recommendations yet</h3>
