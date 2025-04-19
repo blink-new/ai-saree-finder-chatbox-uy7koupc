@@ -12,7 +12,7 @@ export const mockSareeRecommendations: SareeRecommendation[] = [
     color: 'Red',
     material: 'Silk',
     occasion: 'Wedding',
-    link: '#'
+    link: 'https://www.amazon.in/sarees/s?k=banarasi+silk+saree'
   },
   {
     id: '2',
@@ -23,7 +23,7 @@ export const mockSareeRecommendations: SareeRecommendation[] = [
     color: 'Purple',
     material: 'Silk',
     occasion: 'Festival',
-    link: '#'
+    link: 'https://www.amazon.in/sarees/s?k=kanjivaram+silk+saree'
   },
   {
     id: '3',
@@ -34,7 +34,7 @@ export const mockSareeRecommendations: SareeRecommendation[] = [
     color: 'Blue',
     material: 'Cotton',
     occasion: 'Casual',
-    link: '#'
+    link: 'https://www.amazon.in/sarees/s?k=cotton+handloom+saree'
   },
   {
     id: '4',
@@ -45,7 +45,7 @@ export const mockSareeRecommendations: SareeRecommendation[] = [
     color: 'Green',
     material: 'Georgette',
     occasion: 'Party',
-    link: '#'
+    link: 'https://www.amazon.in/sarees/s?k=georgette+printed+saree'
   },
   {
     id: '5',
@@ -56,7 +56,7 @@ export const mockSareeRecommendations: SareeRecommendation[] = [
     color: 'Yellow',
     material: 'Silk',
     occasion: 'Wedding',
-    link: '#'
+    link: 'https://www.amazon.in/sarees/s?k=patola+silk+saree'
   },
   {
     id: '6',
@@ -67,7 +67,7 @@ export const mockSareeRecommendations: SareeRecommendation[] = [
     color: 'Beige',
     material: 'Linen',
     occasion: 'Office',
-    link: '#'
+    link: 'https://www.amazon.in/sarees/s?k=linen+saree'
   },
   {
     id: '7',
@@ -78,7 +78,7 @@ export const mockSareeRecommendations: SareeRecommendation[] = [
     color: 'Pink',
     material: 'Chiffon',
     occasion: 'Reception',
-    link: '#'
+    link: 'https://www.amazon.in/sarees/s?k=chiffon+embroidered+saree'
   },
   {
     id: '8',
@@ -89,7 +89,7 @@ export const mockSareeRecommendations: SareeRecommendation[] = [
     color: 'Teal',
     material: 'Chanderi Silk',
     occasion: 'Festival',
-    link: '#'
+    link: 'https://www.amazon.in/sarees/s?k=chanderi+silk+saree'
   },
   {
     id: '9',
@@ -100,7 +100,7 @@ export const mockSareeRecommendations: SareeRecommendation[] = [
     color: 'Orange',
     material: 'Bhagalpuri Silk',
     occasion: 'Puja',
-    link: '#'
+    link: 'https://www.amazon.in/sarees/s?k=bhagalpuri+silk+saree'
   },
   {
     id: '10',
@@ -111,7 +111,7 @@ export const mockSareeRecommendations: SareeRecommendation[] = [
     color: 'Lavender',
     material: 'Organza',
     occasion: 'Party',
-    link: '#'
+    link: 'https://www.amazon.in/sarees/s?k=organza+saree'
   }
 ];
 
