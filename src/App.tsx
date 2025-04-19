@@ -26,6 +26,7 @@ function App() {
   const [isRecording, setIsRecording] = useState(false);
   const [recommendations, setRecommendations] = useState<SareeRecommendation[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [showSuggestions, setShowSuggestions] = useState(true);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   
   // Speech recognition setup
@@ -46,6 +47,9 @@ function App() {
   // Handle sending a message
   const handleSendMessage = async () => {
     if (!input.trim()) return;
+    
+    // Hide suggestions after first message
+    setShowSuggestions(false);
     
     const userMessage: Message = {
       id: Date.now().toString(),
@@ -180,7 +184,7 @@ function App() {
               </ScrollArea>
               
               <div className="p-4 border-t border-pink-100 dark:border-pink-900">
-                {messages.length === 1 && (
+                {showSuggestions && (
                   <div className="mb-3">
                     <p className="text-sm text-gray-600 dark:text-gray-300 mb-1">Try asking about:</p>
                     <div className="flex flex-wrap gap-2 mt-2">
