@@ -26,7 +26,6 @@ function App() {
   const [isRecording, setIsRecording] = useState(false);
   const [recommendations, setRecommendations] = useState<SareeRecommendation[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [showSuggestions, setShowSuggestions] = useState(true);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   
   // Speech recognition setup
@@ -47,9 +46,6 @@ function App() {
   // Handle sending a message
   const handleSendMessage = async () => {
     if (!input.trim()) return;
-    
-    // Hide suggestions after first message
-    setShowSuggestions(false);
     
     const userMessage: Message = {
       id: Date.now().toString(),
@@ -163,6 +159,27 @@ function App() {
                   {messages.map((message) => (
                     <ChatMessage key={message.id} message={message} />
                   ))}
+                  
+                  {/* Suggestion chips after initial message */}
+                  {messages.length === 1 && (
+                    <div className="ml-10 mt-2">
+                      <p className="text-sm text-gray-600 dark:text-gray-300 mb-1">Try asking about:</p>
+                      <div className="flex flex-wrap gap-2 mt-2">
+                        {sampleQueries.map((query, index) => (
+                          <Button
+                            key={index}
+                            variant="outline"
+                            size="sm"
+                            onClick={() => handleSuggestionSelect(query)}
+                            className="bg-pink-50 text-pink-700 border-pink-200 hover:bg-pink-100 hover:text-pink-800 dark:bg-pink-900/30 dark:text-pink-300 dark:border-pink-800 dark:hover:bg-pink-900/50 transition-all duration-300 text-xs"
+                          >
+                            {query}
+                          </Button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  
                   {isLoading && (
                     <div className="flex justify-start">
                       <div className="flex gap-2 max-w-[80%]">
@@ -184,24 +201,6 @@ function App() {
               </ScrollArea>
               
               <div className="p-4 border-t border-pink-100 dark:border-pink-900">
-                {showSuggestions && (
-                  <div className="mb-3">
-                    <p className="text-sm text-gray-600 dark:text-gray-300 mb-1">Try asking about:</p>
-                    <div className="flex flex-wrap gap-2 mt-2">
-                      {sampleQueries.map((query, index) => (
-                        <Button
-                          key={index}
-                          variant="outline"
-                          size="sm"
-                          onClick={() => handleSuggestionSelect(query)}
-                          className="bg-pink-50 text-pink-700 border-pink-200 hover:bg-pink-100 hover:text-pink-800 dark:bg-pink-900/30 dark:text-pink-300 dark:border-pink-800 dark:hover:bg-pink-900/50 transition-all duration-300 text-xs"
-                        >
-                          {query}
-                        </Button>
-                      ))}
-                    </div>
-                  </div>
-                )}
                 <div className="flex gap-2">
                   <Button 
                     variant="outline" 
