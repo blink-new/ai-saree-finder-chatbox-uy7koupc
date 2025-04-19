@@ -1,14 +1,14 @@
 
 import { SareeRecommendation } from '../types';
 
-// Mock data for saree recommendations
+// Mock data for saree recommendations with better images
 export const mockSareeRecommendations: SareeRecommendation[] = [
   {
     id: '1',
     name: 'Banarasi Silk Saree',
     description: 'Traditional Banarasi silk saree with intricate gold zari work, perfect for wedding ceremonies.',
     price: '₹12,999',
-    image: 'https://images.unsplash.com/photo-1610189020382-9a4a4a5fdfc9?q=80&w=400&auto=format&fit=crop',
+    image: 'https://images.unsplash.com/photo-1609869680932-50c404144a51?q=80&w=400&auto=format&fit=crop',
     color: 'Red',
     material: 'Silk',
     occasion: 'Wedding',
@@ -19,7 +19,7 @@ export const mockSareeRecommendations: SareeRecommendation[] = [
     name: 'Kanjivaram Silk Saree',
     description: 'Pure Kanjivaram silk saree with traditional temple border and rich pallu design.',
     price: '₹15,499',
-    image: 'https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?q=80&w=400&auto=format&fit=crop',
+    image: 'https://images.unsplash.com/photo-1610189020382-9a4a4a5fdfc9?q=80&w=400&auto=format&fit=crop',
     color: 'Purple',
     material: 'Silk',
     occasion: 'Festival',
@@ -41,7 +41,7 @@ export const mockSareeRecommendations: SareeRecommendation[] = [
     name: 'Georgette Printed Saree',
     description: 'Lightweight georgette saree with modern floral prints and sequin embellishments.',
     price: '₹3,999',
-    image: 'https://images.unsplash.com/photo-1610189020382-9a4a4a5fdfc9?q=80&w=400&auto=format&fit=crop',
+    image: 'https://images.unsplash.com/photo-1609869680932-50c404144a51?q=80&w=400&auto=format&fit=crop',
     color: 'Green',
     material: 'Georgette',
     occasion: 'Party',
@@ -52,7 +52,7 @@ export const mockSareeRecommendations: SareeRecommendation[] = [
     name: 'Patola Silk Saree',
     description: 'Traditional Gujarati Patola silk saree with geometric patterns and vibrant colors.',
     price: '₹18,999',
-    image: 'https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?q=80&w=400&auto=format&fit=crop',
+    image: 'https://images.unsplash.com/photo-1610189020382-9a4a4a5fdfc9?q=80&w=400&auto=format&fit=crop',
     color: 'Yellow',
     material: 'Silk',
     occasion: 'Wedding',
@@ -63,7 +63,7 @@ export const mockSareeRecommendations: SareeRecommendation[] = [
     name: 'Linen Saree',
     description: 'Breathable pure linen saree with minimal design, perfect for summer office wear.',
     price: '₹4,299',
-    image: 'https://images.unsplash.com/photo-1610189020382-9a4a4a5fdfc9?q=80&w=400&auto=format&fit=crop',
+    image: 'https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?q=80&w=400&auto=format&fit=crop',
     color: 'Beige',
     material: 'Linen',
     occasion: 'Office',
@@ -74,7 +74,7 @@ export const mockSareeRecommendations: SareeRecommendation[] = [
     name: 'Chiffon Embroidered Saree',
     description: 'Elegant chiffon saree with delicate embroidery work and pearl embellishments.',
     price: '₹6,799',
-    image: 'https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?q=80&w=400&auto=format&fit=crop',
+    image: 'https://images.unsplash.com/photo-1609869680932-50c404144a51?q=80&w=400&auto=format&fit=crop',
     color: 'Pink',
     material: 'Chiffon',
     occasion: 'Reception',
@@ -107,7 +107,7 @@ export const mockSareeRecommendations: SareeRecommendation[] = [
     name: 'Organza Saree',
     description: 'Sheer organza saree with sequin work and contemporary design for modern look.',
     price: '₹8,299',
-    image: 'https://images.unsplash.com/photo-1610189020382-9a4a4a5fdfc9?q=80&w=400&auto=format&fit=crop',
+    image: 'https://images.unsplash.com/photo-1609869680932-50c404144a51?q=80&w=400&auto=format&fit=crop',
     color: 'Lavender',
     material: 'Organza',
     occasion: 'Party',
@@ -122,3 +122,12 @@ export const filterOptions = {
   occasions: ['Wedding', 'Festival', 'Casual', 'Party', 'Office', 'Reception', 'Puja', 'Engagement', 'Daily Wear'],
   designers: ['Sabyasachi', 'Manish Malhotra', 'Ritu Kumar', 'Tarun Tahiliani', 'Anita Dongre', 'Raw Mango', 'Gaurang Shah']
 };
+
+// Sample queries to help users get started
+export const sampleQueries = [
+  "I need a red silk saree for a wedding",
+  "Show me cotton sarees for daily wear",
+  "Looking for a party wear saree in georgette",
+  "I want a blue saree for office",
+  "Show me traditional sarees for a festival"
+];
