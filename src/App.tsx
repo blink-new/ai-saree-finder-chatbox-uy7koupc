@@ -10,7 +10,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from './components/ui/tabs';
 import { Message, SareeRecommendation } from './types';
 import { ChatMessage } from './components/ChatMessage';
 import { SareeCard } from './components/SareeCard';
-import { SuggestionChips } from './components/SuggestionChips';
 import { analyzeQuery } from './services/aiService';
 import { sampleQueries } from './data/mockData';
 
@@ -184,10 +183,19 @@ function App() {
                 {messages.length === 1 && (
                   <div className="mb-3">
                     <p className="text-sm text-gray-600 dark:text-gray-300 mb-1">Try asking about:</p>
-                    <SuggestionChips 
-                      suggestions={sampleQueries} 
-                      onSelect={handleSuggestionSelect} 
-                    />
+                    <div className="flex flex-wrap gap-2 mt-2">
+                      {sampleQueries.map((query, index) => (
+                        <Button
+                          key={index}
+                          variant="outline"
+                          size="sm"
+                          onClick={() => handleSuggestionSelect(query)}
+                          className="bg-pink-50 text-pink-700 border-pink-200 hover:bg-pink-100 hover:text-pink-800 dark:bg-pink-900/30 dark:text-pink-300 dark:border-pink-800 dark:hover:bg-pink-900/50 transition-all duration-300 text-xs"
+                        >
+                          {query}
+                        </Button>
+                      ))}
+                    </div>
                   </div>
                 )}
                 <div className="flex gap-2">
