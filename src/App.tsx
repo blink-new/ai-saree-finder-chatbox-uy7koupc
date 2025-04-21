@@ -54,10 +54,13 @@ function App() {
     
     analyzeQuery(testQuery)
       .then(result => {
-        console.log("DeepSeek simulation test result:", result);
+        console.log("DeepSeek simulation test result:", {
+          responseText: result.responseText,
+          recommendationsCount: result.recommendations.length
+        });
       })
       .catch(error => {
-        console.error("DeepSeek simulation test error:", error);
+        console.error("DeepSeek simulation test error:", error.message);
       });
   }, []);
 
@@ -150,6 +153,10 @@ function App() {
   // Handle suggestion selection
   const handleSuggestionSelect = (suggestion: string) => {
     setInput(suggestion);
+    // Auto-send the suggestion after a short delay
+    setTimeout(() => {
+      handleSendMessage();
+    }, 100);
   };
 
   return (

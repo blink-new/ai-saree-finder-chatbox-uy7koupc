@@ -150,7 +150,7 @@ const simulateDeepSeekResponse = (query: string): {
     `I've curated ${filteredSarees.length} sarees that match your criteria perfectly.`
   ];
   
-  if (filteredSarees.length > 0 && matches?.length > 0) {
+  if (filteredSarees.length > 0 && matches && matches.length > 0) {
     // Use a random variation 50% of the time
     if (Math.random() > 0.5) {
       responseText = responseVariations[Math.floor(Math.random() * responseVariations.length)];
@@ -236,28 +236,3 @@ const fallbackAnalysis = (query: string): Promise<{
     }, 1000);
   });
 };
-
-// Example of how to integrate with DeepSeek API when it's available
-/*
-import { DeepSeekAPI } from 'deepseek-api-client'; // This is a placeholder, use the actual package
-
-const deepseek = new DeepSeekAPI({
-  apiKey: import.meta.env.VITE_DEEPSEEK_API_KEY,
-});
-
-export const analyzeQueryWithDeepSeek = async (query: string) => {
-  const response = await deepseek.chat.completions.create({
-    model: "deepseek-chat",
-    messages: [
-      { 
-        role: "system", 
-        content: "You are an AI assistant that helps users find sarees. Analyze the user query and extract information about color, material, occasion, price range, and any other relevant details."
-      },
-      { role: "user", content: query }
-    ],
-    temperature: 0.7,
-  });
-
-  return response.choices[0].message.content;
-};
-*/
