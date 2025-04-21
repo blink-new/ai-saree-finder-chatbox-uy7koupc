@@ -43,6 +43,24 @@ function App() {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
+  // Test DeepSeek simulation on component mount
+  useEffect(() => {
+    // Log that we're using DeepSeek simulation
+    console.log("AI Saree Finder is now using DeepSeek API simulation");
+    
+    // Test the DeepSeek simulation with a sample query
+    const testQuery = "I need a red silk saree for a wedding";
+    console.log("Testing DeepSeek simulation with query:", testQuery);
+    
+    analyzeQuery(testQuery)
+      .then(result => {
+        console.log("DeepSeek simulation test result:", result);
+      })
+      .catch(error => {
+        console.error("DeepSeek simulation test error:", error);
+      });
+  }, []);
+
   // Handle sending a message
   const handleSendMessage = async () => {
     if (!input.trim()) return;
