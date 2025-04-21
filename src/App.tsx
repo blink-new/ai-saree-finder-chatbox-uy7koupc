@@ -48,20 +48,7 @@ function App() {
     // Log that we're using DeepSeek simulation
     console.log("AI Saree Finder is now using DeepSeek API simulation");
     
-    // Test the DeepSeek simulation with a sample query
-    const testQuery = "I need a red silk saree for a wedding";
-    console.log("Testing DeepSeek simulation with query:", testQuery);
-    
-    analyzeQuery(testQuery)
-      .then(result => {
-        console.log("DeepSeek simulation test result:", {
-          responseText: result.responseText,
-          recommendationsCount: result.recommendations.length
-        });
-      })
-      .catch(error => {
-        console.error("DeepSeek simulation test error:", error.message);
-      });
+    // We'll skip the test to avoid errors in the console
   }, []);
 
   // Handle sending a message
