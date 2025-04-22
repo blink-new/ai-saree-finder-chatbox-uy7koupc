@@ -1,6 +1,6 @@
 
 import { useState, useRef, useEffect } from 'react';
-import { Mic, MicOff, Send, ShoppingBag, Sparkles } from 'lucide-react';
+import { Mic, MicOff, Send, ShoppingBag, Sparkles, Image as ImageIcon, X } from 'lucide-react';
 import { Button } from './components/ui/button';
 import { Input } from './components/ui/input';
 import { Card, CardContent } from './components/ui/card';
@@ -10,14 +10,15 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from './components/ui/tabs';
 import { Message, SareeRecommendation } from './types';
 import { ChatMessage } from './components/ChatMessage';
 import { SareeCard } from './components/SareeCard';
-import { analyzeQuery } from './services/aiService';
+import { analyzeQuery, analyzeImage } from './services/aiService';
 import { sampleQueries } from './data/mockData';
+import { ImageUploader } from './components/ImageUploader';
 
 function App() {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
-      content: 'Hello! I can help you find the perfect saree. Tell me what you\'re looking for - color, material, occasion, or any specific preferences.',
+      content: 'Hello! I can help you find the perfect saree. Tell me what you\'re looking for - color, material, occasion, or any specific preferences. You can also upload a saree image to find similar styles!',
       role: 'assistant',
       timestamp: new Date()
     }
@@ -26,6 +27,8 @@ function App() {
   const [isRecording, setIsRecording] = useState(false);
   const [recommendations, setRecommendations] = useState<SareeRecommendation[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [showImageUploader, setShowImageUploader] = useState(false);
+  const [selectedImage, setSelectedImage] = useState<{file: File, previewUrl: string} | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   
   // Speech recognition setup
@@ -53,13 +56,14 @@ function App() {
 
   // Handle sending a message
   const handleSendMessage = async () => {
-    if (!input.trim()) return;
+    if (!input.trim() && !selectedImage) return;
     
     const userMessage: Message = {
       id: Date.now().toString(),
-      content: input,
+      content: input || "Find sarees similar to this image",
       role: 'user',
-      timestamp: new Date()
+      timestamp: new Date(),
+      imageUrl: selectedImage?.previewUrl
     };
     
     setMessages(prev => [...prev, userMessage]);
@@ -67,8 +71,18 @@ function App() {
     setIsLoading(true);
     
     try {
-      // Process the query using our AI service
-      const { responseText, recommendations } = await analyzeQuery(userMessage.content);
+      let response;
+      
+      // If there's an image, use image analysis
+      if (selectedImage) {
+        response = await analyzeImage(selectedImage.previewUrl);
+        setSelectedImage(null);
+      } else {
+        // Otherwise use text analysis
+        response = await analyzeQuery(userMessage.content);
+      }
+      
+      const { responseText, recommendations } = response;
       
       const assistantMessage: Message = {
         id: (Date.now() + 1).toString(),
@@ -146,6 +160,22 @@ function App() {
     }, 100);
   };
 
+  // Handle image selection
+  const handleImageSelect = (file: File, previewUrl: string) => {
+    setSelectedImage({ file, previewUrl });
+    setShowImageUploader(false);
+  };
+
+  // Handle image upload cancellation
+  const handleImageUploadCancel = () => {
+    setShowImageUploader(false);
+  };
+
+  // Clear selected image
+  const clearSelectedImage = () => {
+    setSelectedImage(null);
+  };
+
   return (
     <div className="flex flex-col min-h-screen bg-gradient-to-br from-pink-50 to-purple-50 dark:from-gray-900 dark:to-purple-950">
       <header className="py-4 px-6 bg-white dark:bg-gray-800 shadow-sm">
@@ -213,6 +243,30 @@ function App() {
               </ScrollArea>
               
               <div className="p-4 border-t border-pink-100 dark:border-pink-900">
+                {selectedImage && (
+                  <div className="mb-3 p-2 bg-pink-50 dark:bg-pink-900/30 rounded-md flex items-center justify-between">
+                    <div className="flex items-center">
+                      <div className="w-10 h-10 rounded-md overflow-hidden mr-2">
+                        <img 
+                          src={selectedImage.previewUrl} 
+                          alt="Selected saree" 
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                      <span className="text-sm text-pink-700 dark:text-pink-300">
+                        Image ready to send
+                      </span>
+                    </div>
+                    <Button 
+                      variant="ghost" 
+                      size="sm" 
+                      onClick={clearSelectedImage}
+                      className="text-pink-700 dark:text-pink-300 hover:bg-pink-100 dark:hover:bg-pink-900"
+                    >
+                      <X size={16} />
+                    </Button>
+                  </div>
+                )}
                 <div className="flex gap-2">
                   <Button 
                     variant="outline" 
@@ -222,8 +276,17 @@ function App() {
                   >
                     {isRecording ? <MicOff size={18} /> : <Mic size={18} />}
                   </Button>
+                  <Button 
+                    variant="outline" 
+                    size="icon"
+                    onClick={() => setShowImageUploader(true)}
+                    className="bg-pink-50 text-pink-600 dark:bg-pink-900 dark:text-pink-300 hover:bg-pink-100 dark:hover:bg-pink-800"
+                    title="Upload saree image"
+                  >
+                    <ImageIcon size={18} />
+                  </Button>
                   <Input 
-                    placeholder="Ask about sarees..." 
+                    placeholder="Ask about sarees or upload an image..." 
                     value={input} 
                     onChange={(e) => setInput(e.target.value)}
                     onKeyDown={handleKeyDown}
@@ -231,7 +294,7 @@ function App() {
                   />
                   <Button 
                     onClick={handleSendMessage}
-                    disabled={!input.trim()}
+                    disabled={!input.trim() && !selectedImage}
                     className="bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 transition-all duration-300"
                   >
                     <Send size={18} />
@@ -283,7 +346,7 @@ function App() {
                   </div>
                   <h3 className="text-xl font-semibold mb-2">No recommendations yet</h3>
                   <p className="text-gray-600 dark:text-gray-300 max-w-md">
-                    Tell me what kind of saree you're looking for, and I'll help you find the perfect options.
+                    Tell me what kind of saree you're looking for, or upload a saree image to find similar styles.
                   </p>
                 </div>
               )}
@@ -295,6 +358,13 @@ function App() {
       <footer className="py-3 px-6 bg-white dark:bg-gray-800 border-t border-pink-100 dark:border-pink-900 text-center text-sm text-gray-500 dark:text-gray-400">
         <p>Saree Finder AI © {new Date().getFullYear()} - Find your perfect saree with AI assistance</p>
       </footer>
+
+      {/* Image Uploader Modal */}
+      <ImageUploader 
+        isVisible={showImageUploader}
+        onImageSelect={handleImageSelect}
+        onCancel={handleImageUploadCancel}
+      />
     </div>
   );
 }

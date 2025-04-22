@@ -25,6 +25,67 @@ export const analyzeQuery = async (query: string): Promise<{
   }
 };
 
+// New function to analyze image and find similar sarees
+export const analyzeImage = async (imageUrl: string): Promise<{
+  responseText: string;
+  recommendations: SareeRecommendation[];
+}> => {
+  try {
+    console.log("Using DeepSeek API simulation for image analysis:", imageUrl.substring(0, 50) + "...");
+    
+    // Simulate API delay (longer for image processing)
+    await new Promise(resolve => setTimeout(resolve, 2500));
+    
+    // In a real implementation, we would:
+    // 1. Send the image to a computer vision API (like DeepSeek, OpenAI Vision, or Google Vision)
+    // 2. Extract features like colors, patterns, style, etc.
+    // 3. Match these features against our saree database
+    
+    // For now, we'll simulate this by randomly selecting sarees and assigning similarity scores
+    return simulateImageAnalysis(imageUrl);
+  } catch (error) {
+    console.error("Error in image analysis simulation:", error);
+    
+    return {
+      responseText: "I encountered an error analyzing your image. Please try again with a different image.",
+      recommendations: []
+    };
+  }
+};
+
+// Function to simulate image analysis and similarity matching
+const simulateImageAnalysis = (imageUrl: string): {
+  responseText: string;
+  recommendations: SareeRecommendation[];
+} => {
+  // In a real implementation, we would extract colors, patterns, etc. from the image
+  // For simulation, we'll randomly select sarees and assign similarity scores
+  
+  // Shuffle the recommendations array to simulate different results each time
+  const shuffledSarees = [...mockSareeRecommendations]
+    .sort(() => Math.random() - 0.5)
+    .slice(0, 6); // Get 6 random sarees
+  
+  // Assign random similarity scores (in a real implementation, these would be calculated)
+  const recommendationsWithScores = shuffledSarees.map(saree => ({
+    ...saree,
+    similarityScore: Math.round((0.7 + Math.random() * 0.3) * 100) / 100 // Random score between 0.7 and 1.0
+  }));
+  
+  // Sort by similarity score (highest first)
+  const sortedRecommendations = recommendationsWithScores.sort(
+    (a, b) => (b.similarityScore || 0) - (a.similarityScore || 0)
+  );
+  
+  // Generate response text
+  const responseText = "I've analyzed your saree image and found these similar options. The recommendations are sorted by visual similarity to your uploaded image.";
+  
+  return {
+    responseText,
+    recommendations: sortedRecommendations
+  };
+};
+
 // Function to simulate what a DeepSeek API response would look like
 const simulateDeepSeekResponse = (query: string): {
   responseText: string;

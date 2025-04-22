@@ -5,6 +5,7 @@ export interface Message {
   content: string;
   role: 'user' | 'assistant';
   timestamp: Date;
+  imageUrl?: string; // Optional image URL for image-based queries
 }
 
 // Saree recommendation types
@@ -18,6 +19,7 @@ export interface SareeRecommendation {
   material: string;
   occasion: string;
   link: string;
+  similarityScore?: number; // Optional similarity score for image-based recommendations
 }
 
 // Filter types

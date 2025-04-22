@@ -29,6 +29,13 @@ export function SareeCard({ saree, view }: SareeCardProps) {
               {saree.price}
             </Badge>
           </div>
+          {saree.similarityScore && (
+            <div className="absolute top-2 left-2">
+              <Badge className="bg-purple-600 text-white dark:bg-purple-700">
+                {Math.round(saree.similarityScore * 100)}% Match
+              </Badge>
+            </div>
+          )}
         </div>
         <CardContent className="p-3">
           <h3 className="font-semibold text-lg">{saree.name}</h3>
@@ -76,7 +83,14 @@ export function SareeCard({ saree, view }: SareeCardProps) {
           </div>
           <div className="flex-1">
             <div className="flex justify-between items-start">
-              <h3 className="font-semibold">{saree.name}</h3>
+              <div>
+                <h3 className="font-semibold">{saree.name}</h3>
+                {saree.similarityScore && (
+                  <Badge className="bg-purple-600 text-white dark:bg-purple-700 text-xs mt-1">
+                    {Math.round(saree.similarityScore * 100)}% Match
+                  </Badge>
+                )}
+              </div>
               <Badge className="bg-white text-pink-600 dark:bg-gray-800 dark:text-pink-300">
                 {saree.price}
               </Badge>

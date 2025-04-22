@@ -1,6 +1,7 @@
 
 import { Avatar } from './ui/avatar';
 import { Message } from '../types';
+import { Image } from 'lucide-react';
 
 interface ChatMessageProps {
   message: Message;
@@ -27,6 +28,24 @@ export function ChatMessage({ message }: ChatMessageProps) {
           } animate-fade-in`}
         >
           <p>{message.content}</p>
+          
+          {/* Display image if present */}
+          {message.imageUrl && (
+            <div className="mt-2 relative">
+              <div className="relative rounded-md overflow-hidden border border-pink-200 dark:border-pink-800">
+                <img 
+                  src={message.imageUrl} 
+                  alt="Uploaded saree" 
+                  className="w-full max-h-48 object-contain"
+                />
+                <div className="absolute top-2 right-2 bg-black/60 text-white text-xs px-2 py-1 rounded-full flex items-center">
+                  <Image size={12} className="mr-1" />
+                  Saree Sample
+                </div>
+              </div>
+            </div>
+          )}
+          
           <p className="text-xs opacity-70 mt-1">
             {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
           </p>
